@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yah Growth ISP – Diagnóstico Estratégico Gratuito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050508;
+      --bg-alt: #0c0c10;
+      --bg-soft: #101018;
+      --card: #15151f;
+      --text: #ffffff;
+      --muted: #c9c9d2;
+      --border: #262637;
+      --primary: #8a2cff;
+      --primary-soft: rgba(138, 44, 255, 0.16);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --transition: 0.18s ease-out;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body { line-height: 1.6; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrapper { min-height: 100vh; }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    h1, h2, h3 {
+      margin: 0 0 16px;
+      letter-spacing: -0.03em;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
+      line-height: 1.18;
+      font-weight: 650;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.75rem;
+      color: #a0a0b5;
+      margin-bottom: 14px;
+    }
+
+    .hero {
+      padding-top: 96px;
+      background: linear-gradient(135deg, #141427, #050508);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-sub {
+      font-size: 0.98rem;
+      max-width: 480px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 24px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      font-size: 0.78rem;
+      color: #f1f1ff;
+      background: rgba(5, 5, 30, 0.7);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #5cffc6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: background var(--transition), color var(--transition), border var(--transition), transform var(--transition), box-shadow var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(138, 44, 255, 0.7);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 30px rgba(138, 44, 255, 0.9);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(255, 255, 255, 0.3);
+      color: #f1f1ff;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: #b3b3c7;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      border-radius: 22px;
+      padding: 18px 18px 16px;
+      background: #1a1a2a;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .hero-card-title {
+      font-size: 0.9rem;
+      color: #f4f4ff;
+      font-weight: 500;
+    }
+
+    .hero-chip {
+      font-size: 0.7rem;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .hero-graph {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 6px;
+      align-items: flex-end;
+      height: 120px;
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      border-radius: 999px;
+      background: linear-gradient(to top, #5b2bb0, #d8c2ff);
+    }
+
+    .bar:nth-child(1) { height: 30%; }
+    .bar:nth-child(2) { height: 45%; }
+    .bar:nth-child(3) { height: 60%; }
+    .bar:nth-child(4) { height: 80%; }
+    .bar:nth-child(5) { height: 100%; }
+
+    .hero-card-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #e4e4ff;
+    }
+
+    .hero-metric-label {
+      font-size: 0.72rem;
+      color: #c1c1d2;
+    }
+
+    .hero-metric-value {
+      font-size: 0.98rem;
+      font-weight: 600;
+    }
+
+    .section-alt { background: var(--bg-alt); }
+    .section-soft { background: var(--bg-soft); }
+
+    .section-header { margin-bottom: 22px; }
+
+    .muted { color: var(--muted); font-size: 0.92rem; }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 18px 18px 16px;
+    }
+
+    .card-title {
+      font-size: 0.98rem;
+      margin-bottom: 8px;
+      font-weight: 550;
+    }
+
+    .card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+    }
+
+    .bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .bullets li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      top: 0;
+      color: var(--primary);
+    }
+
+    .tech-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.1fr);
+      gap: 26px;
+      align-items: center;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .check-icon {
+      margin-top: 3px;
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: #f8f3ff;
+    }
+
+    .tech-card {
+      border-radius: 20px;
+      padding: 18px 18px 14px;
+      background: #181828;
+      border: 1px solid var(--border);
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.74rem;
+      color: #f6f6ff;
+      margin-bottom: 14px;
+    }
+
+    .tech-radar {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .tech-col { display: flex; flex-direction: column; gap: 4px; }
+
+    .tech-seg {
+      height: 10px;
+      border-radius: 999px;
+      background: #272739;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(to right, #7a35ff, #e2d2ff);
+    }
+
+    .tech-seg.low .tech-fill { width: 35%; }
+    .tech-seg.med .tech-fill { width: 55%; }
+    .tech-seg.high .tech-fill { width: 80%; }
+    .tech-seg.max .tech-fill { width: 100%; }
+
+    .tech-label {
+      font-size: 0.76rem;
+      color: #f6f6ff;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 32px;
+    }
+
+    .callout {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: rgba(12, 12, 26, 0.85);
+      font-size: 0.86rem;
+      color: #f0f0ff;
+    }
+
+    .logos-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+      margin-top: 18px;
+    }
+
+    .logo-pill {
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 0.86rem;
+      color: #f1f1ff;
+      opacity: 0.9;
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .metric-card {
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 16px 18px 14px;
+    }
+
+    .metric-value {
+      font-size: 1.6rem;
+      font-weight: 650;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 0.86rem;
+      color: #f9f9ff;
+    }
+
+    .metric-caption {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .testimonial-card {
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 16px 18px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .stars {
+      color: var(--primary);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+    }
+
+    .testimonial-text { font-size: 0.9rem; color: #f1f1ff; }
+
+    .testimonial-name { font-size: 0.8rem; color: #c9c9dd; }
+
+    .cta-block {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 26px;
+    }
+
+    .mini-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.78rem;
+      color: #f3f3ff;
+      margin-bottom: 14px;
+    }
+
+    form {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 18px;
+    }
+
+    .form-full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.8rem;
+      color: #e3e3ff;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid #373752;
+      background: #070710;
+      color: #ffffff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+      border-radius: 16px;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #85859b;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 1px rgba(138, 44, 255, 0.35);
+      background: #090918;
+    }
+
+    .form-footnote {
+      margin-top: 10px;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    .whatsapp-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    footer {
+      padding: 26px 0 32px;
+      background: #05050b;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    footer .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: #9c9cb2;
+    }
+
+    @media (max-width: 920px) {
+      .hero-inner { grid-template-columns: minmax(0, 1fr); }
+      .hero-right { order: -1; }
+      .grid-3,
+      .metrics-grid,
+      .testimonials-grid { grid-template-columns: minmax(0, 1fr); }
+      .tech-grid,
+      .two-col { grid-template-columns: minmax(0, 1fr); }
+      form { grid-template-columns: minmax(0, 1fr); }
+      .hero-ctas { width: 100%; }
+      .btn { flex: 1; justify-content: center; }
+    }
+
+    @media (max-width: 640px) {
+      section { padding: 56px 0; }
+      .container { padding: 0 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div>
+            <div class="eyebrow">YAH GROWTH ISP</div>
+            <h1>Seu provedor trabalha duro demais para vender tão pouco… enquanto a concorrência avança. Por quê?</h1>
+            <p class="hero-sub">
+              Agende um diagnóstico estratégico gratuito e descubra exatamente onde sua operação está perdendo dinheiro — e como corrigir isso com método.
+            </p>
+
+            <div class="hero-meta">
+              <div class="pill">
+                <span class="pill-dot"></span>
+                Únicos com garantia de resultado 100% em contrato.
+              </div>
+              <div class="pill">
+                <span class="pill-dot"></span>
+                Exclusivo para provedores com +1.000 clientes ativos.
+              </div>
+            </div>
+
+            <div class="hero-ctas">
+              <a href="#formulario" class="btn btn-primary">Quero meu diagnóstico gratuito</a>
+              <a href="#para-quem" class="btn btn-outline">Ver se meu provedor se qualifica</a>
+            </div>
+
+            <div class="hero-note">
+              Diagnóstico direto, técnico e aplicável à realidade do seu provedor.
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="hero-card">
+              <div class="hero-card-header">
+                <div class="hero-card-title">Simulação de crescimento após ajustes</div>
+                <div class="hero-chip">Operação real de ISP</div>
+              </div>
+              <div class="hero-graph">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+              <div class="hero-card-footer">
+                <div>
+                  <div class="hero-metric-label">Vendas em 60 dias</div>
+                  <div class="hero-metric-value">+121%</div>
+                </div>
+                <div>
+                  <div class="hero-metric-label">Conversão média</div>
+                  <div class="hero-metric-value">+37%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTORIDADE -->
+    <section class="section-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Referência nacional em ISPs.</h2>
+          <p class="muted">
+            5+ anos atuando exclusivamente com provedores de internet, ajudando operações a venderem mais com estrutura, método e previsibilidade.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARA QUEM -->
+    <section id="para-quem">
+      <div class="container">
+        <div class="section-header">
+          <h2>Para quem é esse diagnóstico?</h2>
+          <p class="muted">
+            Se o seu provedor tem +1.000 clientes ativos e vende menos do que deveria, o problema não é falta de demanda — é um gargalo sério na operação que ainda não foi identificado.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-icon">🧩</div>
+            <div class="card-title">Operação sobrecarregada</div>
+            <ul class="bullets">
+              <li>Time atendendo muito e convertendo pouco.</li>
+              <li>Leads se perdem entre etapas e sistemas.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">📉</div>
+            <div class="card-title">Funil travado</div>
+            <ul class="bullets">
+              <li>Campanhas trazendo leads, mas vendas não acompanham.</li>
+              <li>Queda de conversão sem causa clara.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-icon">💸</div>
+            <div class="card-title">Concorrência avançando</div>
+            <ul class="bullets">
+              <li>Outros provedores crescendo nos mesmos bairros.</li>
+              <li>Sensação de estar “perdendo dinheiro sem ver onde”.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCO TÉCNICO -->
+    <section class="section-alt">
+      <div class="container">
+        <div class="tech-grid">
+          <div>
+            <h2>Mostramos exatamente onde seu provedor perde vendas.</h2>
+            <p class="muted">
+              Concorrência, bairros, oferta, comercial, operação… analisamos sua realidade em detalhes para revelar os pontos exatos onde o dinheiro está escapando todos os dias.
+            </p>
+            <ul class="check-list">
+              <li><div class="check-icon">✔</div><span>Análise por bairro, ticket, oferta e canal de aquisição.</span></li>
+              <li><div class="check-icon">✔</div><span>Mapeamento da jornada completa: lead → contato → proposta → fechamento.</span></li>
+              <li><div class="check-icon">✔</div><span>Diagnóstico dos gargalos comerciais que fazem você atender muito e vender pouco.</span></li>
+            </ul>
+          </div>
+
+          <div class="tech-card">
+            <div class="tech-pill">📊 Diagnóstico Yah Growth</div>
+            <div class="tech-radar">
+              <div class="tech-col">
+                <div class="tech-seg med"><div class="tech-fill"></div></div>
+                <div class="tech-label">Aquisição</div>
+              </div>
+              <div class="tech-col">
+                <div class="tech-seg low"><div class="tech-fill"></div></div>
+                <div class="tech-label">Qualificação</div>
+              </div>
+              <div class="tech-col">
+                <div class="tech-seg high"><div class="tech-fill"></div></div>
+                <div class="tech-label">Fechamento</div>
+              </div>
+              <div class="tech-col">
+                <div class="tech-seg max"><div class="tech-fill"></div></div>
+                <div class="tech-label">Potencial</div>
+              </div>
+            </div>
+            <p style="font-size:0.8rem;color:#d6d6f5;">
+              Antes: operação no escuro. Depois: mapa claro de gargalos e plano de ação.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- O QUE RECEBE -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>O que você recebe no diagnóstico gratuito</h2>
+          <p class="muted">
+            Uma reunião única, direta e técnica, pensada para abrir seus olhos sobre o que realmente está travando o crescimento do seu provedor.
+          </p>
+        </div>
+
+        <div class="two-col">
+          <ul class="check-list">
+            <li><div class="check-icon">✔</div><span>Gargalos reais da operação que impedem seu provedor de crescer.</span></li>
+            <li><div class="check-icon">✔</div><span>Causas da baixa conversão em cada etapa da jornada de venda.</span></li>
+            <li><div class="check-icon">✔</div><span>Travamentos do time comercial que fazem você atender muito e vender pouco.</span></li>
+          </ul>
+          <ul class="check-list">
+            <li><div class="check-icon">✔</div><span>Análise dos concorrentes e comportamento por bairro.</span></li>
+            <li><div class="check-icon">✔</div><span>Mapa de oportunidades: onde há dinheiro na mesa hoje.</span></li>
+            <li><div class="check-icon">✔</div><span>Ações imediatas para vender mais com a estrutura atual.</span></li>
+          </ul>
+        </div>
+
+        <div class="callout">
+          Tudo isso em uma única reunião gratuita — direta, técnica e aplicada à realidade do seu provedor.
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGOS -->
+    <section class="section-alt">
+      <div class="container">
+        <h2>Provedores que já confiaram no nosso trabalho</h2>
+        <p class="muted">
+          Operações que saíram do escuro para uma visão clara de funil, operação e crescimento.
+        </p>
+        <div class="logos-row">
+          <div class="logo-pill">Pandora Internet</div>
+          <div class="logo-pill">Fox Conect</div>
+          <div class="logo-pill">Link Speed</div>
+          <div class="logo-pill">Vivas Telecom</div>
+          <div class="logo-pill">Fibra Líder</div>
+          <div class="logo-pill">Impacto Telecom</div>
+          <div class="logo-pill">MasterInfo</div>
+          <div class="logo-pill">SP Link</div>
+          <div class="logo-pill">B Telecom</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="section-soft">
+      <div class="container">
+        <div class="section-header">
+          <h2>Resultados que falam por si</h2>
+          <p class="muted">Números reais gerados a partir de diagnósticos cirúrgicos em operações de provedores.</p>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">+121%</div>
+            <div class="metric-label">em vendas em 60 dias.</div>
+            <div class="metric-caption">Depois de ajustes de operação, funil e oferta.</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">947</div>
+            <div class="metric-label">novas vendas em menos de 3 meses.</div>
+            <div class="metric-caption">Estrutura comercial organizada para escalar com previsibilidade.</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">+37%</div>
+            <div class="metric-label">de conversão média.</div>
+            <div class="metric-caption">Apenas com correções cirúrgicas na jornada e no atendimento.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPOIMENTOS -->
+    <section>
+      <div class="container">
+        <div class="section-header">
+          <h2>O que os provedores dizem depois do diagnóstico</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">“A Yah mostrou exatamente onde estávamos perdendo dinheiro. Em 60 dias vendemos mais que em 4 meses.”</div>
+            <div class="testimonial-name">Diretor Comercial – Pandora Internet</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">“A acurácia do diagnóstico mudou nosso jogo. Conversão disparou.”</div>
+            <div class="testimonial-name">CEO – Fox Conect</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">“Eu achava que era tráfego. Era operação. Eles viram o que ninguém vê.”</div>
+            <div class="testimonial-name">Fundador – Link Speed</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">“Primeira vez que sentimos segurança real em um parceiro. Estratégia pura.”</div>
+            <div class="testimonial-name">Gerente Geral – Vivas Telecom</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">“Clareza e vendas. É simples: funciona.”</div>
+            <div class="testimonial-name">Sócio – Fibra Líder</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">“Organizou nossa operação para crescer com previsibilidade, não na base da tentativa e erro.”</div>
+            <div class="testimonial-name">Diretor – MasterInfo</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA + FORM -->
+    <section class="section-soft" id="formulario">
+      <div class="container">
+        <div class="cta-block">
+          <div class="mini-badge">Diagnóstico gratuito · 1 provedor por região</div>
+          <h2>Agende seu diagnóstico estratégico.</h2>
+          <p>Uma conversa técnica para enxergar o que está travando seu provedor — e como corrigir isso com método, dados e operação organizada.</p>
+        </div>
+
+        <form>
+          <div>
+            <label for="nome">Nome completo</label>
+            <input id="nome" type="text" placeholder="Seu nome" />
+          </div>
+          <div>
+            <label for="cargo">Cargo</label>
+            <input id="cargo" type="text" placeholder="CEO, diretor, gestor de marketing..." />
+          </div>
+          <div>
+            <label for="empresa">Nome do provedor</label>
+            <input id="empresa" type="text" placeholder="Ex: Pandora Internet" />
+          </div>
+          <div>
+            <label for="clientes">Número aproximado de clientes ativos</label>
+            <select id="clientes">
+              <option value="">Selecione</option>
+              <option>1.000 a 2.500 clientes</option>
+              <option>2.500 a 5.000 clientes</option>
+              <option>5.000 a 10.000 clientes</option>
+              <option>Mais de 10.000 clientes</option>
+            </select>
+          </div>
+          <div>
+            <label for="whats">WhatsApp</label>
+            <input id="whats" type="tel" placeholder="(00) 00000-0000" />
+          </div>
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" type="email" placeholder="voce@provedor.com.br" />
+          </div>
+          <div class="form-full">
+            <label for="desafio">Qual é hoje o maior desafio do seu provedor?</label>
+            <textarea id="desafio" placeholder="Conte em poucas linhas onde você sente que a operação está travando."></textarea>
+          </div>
+          <div class="form-full">
+            <button type="submit" class="btn btn-primary" style="width:100%;">Enviar dados e falar com a Yah Growth</button>
+          </div>
+        </form>
+
+        <div class="form-footnote">
+          Ao enviar o formulário, nossa equipe entra em contato em até 1 dia útil para confirmar sua região e agendar o diagnóstico.
+        </div>
+      </div>
+    </section>
+
+    <!-- WHATSAPP -->
+    <section>
+      <div class="container">
+        <div class="whatsapp-cta">
+          <h3>Prefere falar direto com nossa equipe?</h3>
+          <p class="muted">Se você já sabe que precisa de clareza operacional, chame a Yah agora no WhatsApp e acelere o agendamento do diagnóstico.</p>
+          <a href="https://wa.me/5500000000000" class="btn btn-primary">Chamar no WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Yah Growth ISP. Todos os direitos reservados.</div>
+        <div>Diagnóstico estratégico para provedores com +1.000 clientes ativos.</div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
